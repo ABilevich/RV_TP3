@@ -9,7 +9,7 @@ public class BuildingCreator : MonoBehaviour
     public GameObject streetPrefab;
     public float clearance;
     public Transform origin;
-
+    public LayerMask m_buildings;
     public float blockSize = 1;
     public int boxSize = 10;
     public int blocksInBlock = 5;
@@ -52,7 +52,7 @@ public class BuildingCreator : MonoBehaviour
                 // Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
                 Vector3 buildingScale = buildingPrefab.transform.localScale;
                 Vector3 boundry = new Vector3(buildingScale.x/2, maxBuildingHeight, buildingScale.y/2);
-                Collider[] hitColliders = Physics.OverlapBox(spawnPoint,boundry, Quaternion.identity);
+                Collider[] hitColliders = Physics.OverlapBox(spawnPoint,boundry, Quaternion.identity, m_buildings);
                 // Collider[] hitColliders = Physics.OverlapSphere(new Vector3(spawnPoint.x, 0, spawnPoint.z), blockSize/3);
                 bool isOnStreet = (x % blocksInBlock) == 0 || (z % blocksInBlock) == 0;
 
