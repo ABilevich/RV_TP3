@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building
       objectReference: {fileID: 0}
+    - target: {fileID: 282083217759595156, guid: db16ccf019f483f4fa50ed5987cf60ce, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6501351854113889296, guid: db16ccf019f483f4fa50ed5987cf60ce, type: 3}
       propertyPath: m_RootOrder
       value: 0
