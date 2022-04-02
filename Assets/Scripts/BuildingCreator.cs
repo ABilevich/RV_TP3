@@ -19,6 +19,7 @@ public class BuildingCreator : MonoBehaviour
 
     public float minBuildingHeight = 1;
     public float maxBuildingHeight = 100;
+    public Material[] materials;
 
 
     // Start is called before the first frame update
@@ -65,6 +66,7 @@ public class BuildingCreator : MonoBehaviour
                         GameObject newBlock = Instantiate(buildingPrefab, spawnPoint, Quaternion.identity) as GameObject;
                         newBlock.transform.localScale = new Vector3(blockSize, buildingHeight, blockSize);
                         newBlock.transform.parent = origin.transform;
+                        newBlock.gameObject.GetComponent<Renderer>().material = materials[Random.Range(0,9)];
                     }
 
                 }

@@ -165,6 +165,17 @@ MonoBehaviour:
   despawnRadious: 150
   minBuildingHeight: 15
   maxBuildingHeight: 50
+  materials:
+  - {fileID: 2100000, guid: 3c313c00b5c1046d29fd046c514eda9c, type: 2}
+  - {fileID: 2100000, guid: 31ff1641795e34567be277028e2c4f3b, type: 2}
+  - {fileID: 2100000, guid: f3f7e3cdcf38f427090eb07cc7f24220, type: 2}
+  - {fileID: 2100000, guid: 43967ca9af73b4ac799047f729f38421, type: 2}
+  - {fileID: 2100000, guid: f54ce3cbb201a452ca7a0524c928d595, type: 2}
+  - {fileID: 2100000, guid: d084511af2b0f4ea0bc9d08151399f5e, type: 2}
+  - {fileID: 2100000, guid: bacdaebea8d2341808fb243dcebfa532, type: 2}
+  - {fileID: 2100000, guid: bfcc03ed6652f4236a5c79dd98b5bd29, type: 2}
+  - {fileID: 2100000, guid: 3dbdaea8d96064577b5c5333a6d97955, type: 2}
+  - {fileID: 2100000, guid: 67058dcef67034e79bd80a235cfcc607, type: 2}
 --- !u!4 &45872831
 Transform:
   m_ObjectHideFlags: 0
@@ -755,6 +766,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
