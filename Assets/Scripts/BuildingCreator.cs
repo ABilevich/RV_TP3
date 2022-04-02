@@ -15,6 +15,10 @@ public class BuildingCreator : MonoBehaviour
     public int blocksInBlock = 5;
     public float despawnRadious = 20;
 
+    public int oceanGap = 30;
+    public float oceanPercentage = 0.5f;
+
+
     private float segmentSize;
 
     public float minBuildingHeight = 1;
@@ -55,7 +59,7 @@ public class BuildingCreator : MonoBehaviour
                 Vector3 boundry = new Vector3(buildingScale.x/2, maxBuildingHeight, buildingScale.y/2);
                 Collider[] hitColliders = Physics.OverlapBox(spawnPoint,boundry, Quaternion.identity, m_buildings);
                 // Collider[] hitColliders = Physics.OverlapSphere(new Vector3(spawnPoint.x, 0, spawnPoint.z), blockSize/3);
-                bool isOnStreet = (x % blocksInBlock) == 0 || (z % blocksInBlock) == 0;
+                bool isOnStreet = (x % blocksInBlock) == 0 || (z % blocksInBlock) == 0 || (z % oceanGap) > oceanGap * oceanPercentage;
 
                 float distance = Vector3.Distance(spawnPoint, transform.position);
                 bool canSpown = distance < despawnRadious;
