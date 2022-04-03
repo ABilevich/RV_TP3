@@ -193,6 +193,7 @@ Transform:
   - {fileID: 963194228}
   - {fileID: 1820733328}
   - {fileID: 1905797973}
+  - {fileID: 1602038126}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -462,7 +463,7 @@ GameObject:
   - component: {fileID: 1602038124}
   - component: {fileID: 1602038123}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,12 +539,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602038122}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 0.1, z: 1}
+  m_LocalScale: {x: 500, y: 0.1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 45872831}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1820733327
 GameObject:
