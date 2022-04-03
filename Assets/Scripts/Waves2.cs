@@ -6,7 +6,8 @@ using UnityEngine;
 public class Waves2 : MonoBehaviour
 {
     //Public Properties
-    public int Dimension = 10;
+    public int DimensionX = 10;
+    public int DimensionZ = 10;
     public float UVScale = 2f;
     public Octave[] Octaves;
     public Transform offset;
@@ -34,11 +35,11 @@ public class Waves2 : MonoBehaviour
 
     private Vector3[] GenerateVerts()
     {
-        var verts = new Vector3[(Dimension + 1) * (Dimension + 1)];
+        var verts = new Vector3[(DimensionX + 1) * (DimensionZ + 1)];
 
         //equaly distributed verts
-        for(int x = 0; x <= Dimension; x++)
-            for(int z = 0; z <= Dimension; z++)
+        for(int x = 0; x <= DimensionX; x++)
+            for(int z = 0; z <= DimensionZ; z++)
                 verts[index(x, z)] = new Vector3(x, 0, z);
 
         return verts;
@@ -49,9 +50,9 @@ public class Waves2 : MonoBehaviour
         var tries = new int[Mesh.vertices.Length * 6];
 
         //two triangles are one tile
-        for(int x = 0; x < Dimension; x++)
+        for(int x = 0; x < DimensionX; x++)
         {
-            for(int z = 0; z < Dimension; z++)
+            for(int z = 0; z < DimensionZ; z++)
             {
                 tries[index(x, z) * 6 + 0] = index(x, z);
                 tries[index(x, z) * 6 + 1] = index(x + 1, z + 1);
@@ -70,9 +71,9 @@ public class Waves2 : MonoBehaviour
         var uvs = new Vector2[Mesh.vertices.Length];
 
         //always set one uv over n tiles than flip the uv and set it again
-        for (int x = 0; x <= Dimension; x++)
+        for (int x = 0; x <= DimensionX; x++)
         {
-            for (int z = 0; z <= Dimension; z++)
+            for (int z = 0; z <= DimensionZ; z++)
             {
                 var vec = new Vector2((x / UVScale) % 2, (z / UVScale) % 2);
                 uvs[index(x, z)] = new Vector2(vec.x <= 1 ? vec.x : 2 - vec.x, vec.y <= 1 ? vec.y : 2 - vec.y);
@@ -84,7 +85,7 @@ public class Waves2 : MonoBehaviour
 
     private int index(int x, int z)
     {
-        return x * (Dimension + 1) + z;
+        return x * (DimensionZ + 1) + z;
     }
 
     private int index(float x, float z)
@@ -96,21 +97,21 @@ public class Waves2 : MonoBehaviour
     void Update()
     {
         var verts = Mesh.vertices;
-        for (int x = 0; x <= Dimension; x++)
+        for (int x = 0; x <= DimensionX; x++)
         {
-            for (int z = 0; z <= Dimension; z++)
+            for (int z = 0; z <= DimensionZ; z++)
             {
                 var y = 0f;
                 for (int o = 0; o < Octaves.Length; o++)
                 {
                     if (Octaves[o].alternate)
                     {
-                        var perl = Mathf.PerlinNoise(((offset.position.x + x) * Octaves[o].scale.x) / Dimension, ((offset.position.z + z) * Octaves[o].scale.y) / Dimension) * Mathf.PI * 2f;
+                        var perl = Mathf.PerlinNoise(((offset.position.x + x) * Octaves[o].scale.x) / DimensionX, ((offset.position.z + z) * Octaves[o].scale.y) / DimensionZ) * Mathf.PI * 2f;
                         y += Mathf.Cos(perl + Octaves[o].speed.magnitude * Time.time) * Octaves[o].height;
                     }
                     else
                     {
-                        var perl = Mathf.PerlinNoise(((offset.position.x + x) * Octaves[o].scale.x + Time.time * Octaves[o].speed.x) / Dimension, ((offset.position.z + z) * Octaves[o].scale.y + Time.time * Octaves[o].speed.y) / Dimension) - 0.5f;
+                        var perl = Mathf.PerlinNoise(((offset.position.x + x) * Octaves[o].scale.x + Time.time * Octaves[o].speed.x) / DimensionX, ((offset.position.z + z) * Octaves[o].scale.y + Time.time * Octaves[o].speed.y) / DimensionZ) - 0.5f;
                         y += perl * Octaves[o].height;
                     }
                 }
