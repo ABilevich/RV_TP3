@@ -21,6 +21,8 @@ public class BuildingCreator : MonoBehaviour
     public Material[] materials;
     public GameObject[] spawnedConcretes;
     public GameObject concretePrefab;
+    public GameObject[] spawnedStreets;
+    public GameObject streetPrefab;
 
 
     // Start is called before the first frame update
@@ -29,6 +31,10 @@ public class BuildingCreator : MonoBehaviour
         Vector3 actualConcretePosition = spawnedConcretes[1].transform.position;
         Vector3 concreteSpawnPoint = new Vector3(actualConcretePosition.x, actualConcretePosition.y, actualConcretePosition.z + 2 * concretePrefab.transform.localScale.z);
         spawnedConcretes[2] = Instantiate(concretePrefab, concreteSpawnPoint, Quaternion.identity);
+
+        Vector3 actualStreetPosition = spawnedStreets[1].transform.position;
+        Vector3 streetSpawnPoint = new Vector3(actualStreetPosition.x, actualStreetPosition.y, actualStreetPosition.z + 750);
+        spawnedStreets[2] = Instantiate(streetPrefab, streetSpawnPoint, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -49,7 +55,7 @@ public class BuildingCreator : MonoBehaviour
         for (int x = minX; x <= maxX; x++){
             for (int z = minZ; z  <= maxZ; z ++){
                 float buildingHeight = Random.Range(minBuildingHeight, maxBuildingHeight);
-                Vector3 spawnPoint = new Vector3(x * blockSize + blockSize/2, buildingHeight/2 + 1, z * blockSize + blockSize/2);
+                Vector3 spawnPoint = new Vector3(x * blockSize + blockSize/2, buildingHeight/2 + 3, z * blockSize + blockSize/2);
                 Vector3 buildingScale = buildingPrefab.transform.localScale;
                 Vector3 boundry = new Vector3(buildingScale.x/2, maxBuildingHeight, buildingScale.y/2);
                 Collider[] hitColliders = Physics.OverlapBox(spawnPoint,boundry, Quaternion.identity, m_buildings);
@@ -84,6 +90,15 @@ public class BuildingCreator : MonoBehaviour
             Vector3 actualConcretePosition = spawnedConcretes[1].transform.position;
             Vector3 concreteSpawnPoint = new Vector3(actualConcretePosition.x, actualConcretePosition.y, actualConcretePosition.z + 2 * concretePrefab.transform.localScale.z);
             spawnedConcretes[2] = Instantiate(concretePrefab, concreteSpawnPoint, Quaternion.identity);
+        }
+
+        if(Mathf.Abs(Camera.main.transform.position.z - spawnedStreets[2].transform.position.z) < 350){
+            Destroy(spawnedStreets[0]);
+            spawnedStreets[0] = spawnedStreets[1];
+            spawnedStreets[1] = spawnedStreets[2];
+            Vector3 actualStreetPosition = spawnedStreets[1].transform.position;
+            Vector3 streetSpawnPoint = new Vector3(actualStreetPosition.x, actualStreetPosition.y, actualStreetPosition.z + 750);
+            spawnedStreets[2] = Instantiate(streetPrefab, streetSpawnPoint, Quaternion.identity);
         }
     }
 

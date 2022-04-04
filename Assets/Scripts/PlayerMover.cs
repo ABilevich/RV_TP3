@@ -14,6 +14,13 @@ public class PlayerMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.anyKey){
+            speed = 20;
+        }
+        else{
+            speed = 10;
+        }
+
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
