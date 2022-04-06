@@ -23,7 +23,7 @@ public class BuildingCreator : MonoBehaviour
     public GameObject concretePrefab;
     public GameObject[] spawnedStreets;
     public GameObject streetPrefab;
-
+    public GameObject lampPrefab;
 
     // Start is called before the first frame update
     void Start()
