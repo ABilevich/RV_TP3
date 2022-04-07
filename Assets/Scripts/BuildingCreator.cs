@@ -56,61 +56,52 @@ public class BuildingCreator : MonoBehaviour
 
 
         for (int x = minX; x <= maxX; x++){
-            for (int z = minZ; z  <= maxZ; z ++){
+            for (int z = minZ; z <= maxZ; z++)
+            {
                 float buildingHeight = Random.Range(minBuildingHeight, maxBuildingHeight);
-                Vector3 spawnPoint = new Vector3(x * blockSize + blockSize/2, buildingHeight/2 + 3, z * blockSize + blockSize/2);
+                Vector3 spawnPoint = new Vector3(x * blockSize + blockSize / 2, buildingHeight / 2 + 3, z * blockSize + blockSize / 2);
                 Vector3 buildingScale = buildingPrefab.transform.localScale;
-                Vector3 boundry = new Vector3(buildingScale.x/2, maxBuildingHeight, buildingScale.y/2);
-                Collider[] hitColliders = Physics.OverlapBox(spawnPoint,boundry, Quaternion.identity, m_buildings);
+                Vector3 boundry = new Vector3(buildingScale.x / 2, maxBuildingHeight, buildingScale.y / 2);
+                Collider[] hitColliders = Physics.OverlapBox(spawnPoint, boundry, Quaternion.identity, m_buildings);
                 bool isOnSea = (z % oceanGap) > oceanGap * oceanPercentage;
                 bool isOnStreet = (x % blocksInBlock) == 0 || (z % blocksInBlock) == 0;
 
                 float distance = Vector3.Distance(spawnPoint, transform.position);
                 bool canSpown = distance < despawnRadious;
 
-                if(hitColliders.Length == 0 && canSpown){
-                    if(!isOnStreet && !isOnSea){
+                if (hitColliders.Length == 0 && canSpown)
+                {
+                    if (!isOnStreet && !isOnSea)
+                    {
                         GameObject newBlock = Instantiate(buildingPrefab, spawnPoint, Quaternion.identity) as GameObject;
                         newBlock.transform.localScale = new Vector3(blockSize, buildingHeight, blockSize);
                         newBlock.transform.parent = origin.transform;
-                        newBlock.gameObject.GetComponent<Renderer>().material = materials[Random.Range(0,9)];
+                        newBlock.gameObject.GetComponent<Renderer>().material = materials[Random.Range(0, 9)];
                     }
                 }
 
-                
-                Vector3 lampBoundry = new Vector3(5, 5, 5);
-                Collider[] LampHitColliders = Physics.OverlapBox(spawnPoint,lampBoundry, Quaternion.identity, m_buildings);
 
-                bool lampIsOnStreet = (x % blocksInBlock) == 0 && Mathf.Abs(transform.position.x - spawnPoint.x) < blockSize;
-                bool canSpawnLamp = Mathf.Abs(spawnPoint.x - transform.position.x) < despawnSquareX && Mathf.Abs(spawnPoint.z - transform.position.z) < despawnSquareZ;
-                
-                if (LampHitColliders.Length == 0 && canSpawnLamp && lampIsOnStreet && !isOnSea){
-                    bool wasOnStreet = (x % blocksInBlock) == 0 && x == (boxSize /2);
-                    Vector3 lampSpawnPoint = new Vector3(x * blockSize + blockSize / 2, 3, z * blockSize + blockSize / 2);
-                    Vector3 spawnPoint1;
-                    Vector3 spawnPoint2;
-                    Vector3 lampRotation1;
-                    Vector3 lampRotation2;
+                Vector3 lampSpawnPoint = new Vector3(x * blockSize + blockSize / 2, 3, z * blockSize + blockSize / 2);
+                float lampDistance = Vector3.Distance(lampSpawnPoint, transform.position);
+                if (!((z % blocksInBlock) == 0) && 0 < lampSpawnPoint.x && lampSpawnPoint.x < 10 && !isOnSea && lampDistance < despawnRadious)
+                {
+                    Vector3 spawnPoint1 = new Vector3(lampSpawnPoint.x + (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
+                    Vector3 spawnPoint2 = new Vector3(lampSpawnPoint.x - (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
+                    Debug.DrawLine(spawnPoint1, spawnPoint1 + new Vector3(0,2,0));
+                    Debug.DrawLine(spawnPoint2, spawnPoint2 + new Vector3(0,2,0));
+                    Vector3 lampBoundry = lampPrefab.transform.localScale /2;
+                    Collider[] LampHitColliders1 = Physics.OverlapBox(spawnPoint1, lampBoundry, Quaternion.identity, m_buildings);
+                    Collider[] LampHitColliders2 = Physics.OverlapBox(spawnPoint2, lampBoundry, Quaternion.identity, m_buildings);
 
-                    // if (wasOnStreet)
-                    // {
-                        spawnPoint1 = new Vector3(lampSpawnPoint.x + (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
-                        spawnPoint2 = new Vector3(lampSpawnPoint.x - (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
-                        lampRotation1 = new Vector3(0,90,0);
-                        lampRotation2 = new Vector3(0,-90,0);
-                    // }
-                    // else
-                    // {
-                    //     spawnPoint1 = new Vector3(lampSpawnPoint.x - (0), lampSpawnPoint.y, lampSpawnPoint.z - (4));
-                    //     spawnPoint2 = new Vector3(lampSpawnPoint.x - (0), lampSpawnPoint.y, lampSpawnPoint.z + (4));
-                    //     lampRotation1 = new Vector3(0, 180, 0);
-                    //     lampRotation2 = new Vector3(0, 0, 0);
-                    // }
-                    lampPrefab.transform.localScale = new Vector3(3,3,3);
-                    GameObject newBlock1 = Instantiate(lampPrefab, spawnPoint1, Quaternion.Euler(lampRotation1)) as GameObject;
-                    GameObject newBlock2 = Instantiate(lampPrefab, spawnPoint2, Quaternion.Euler(lampRotation2)) as GameObject;
-                    newBlock1.transform.parent = origin.transform;
-                    newBlock2.transform.parent = origin.transform;
+                    if (LampHitColliders1.Length == 0 && LampHitColliders2.Length == 0){
+                        Vector3 lampRotation1= new Vector3(0,90,0);
+                        Vector3 lampRotation2 = new Vector3(0,-90,0);
+                        lampPrefab.transform.localScale = new Vector3(3,3,3);
+                        GameObject newBlock1 = Instantiate(lampPrefab, spawnPoint1, Quaternion.Euler(lampRotation1)) as GameObject;
+                        GameObject newBlock2 = Instantiate(lampPrefab, spawnPoint2, Quaternion.Euler(lampRotation2)) as GameObject;
+                        newBlock1.transform.parent = origin.transform;
+                        newBlock2.transform.parent = origin.transform;
+                    }
                 }
             }
         }
