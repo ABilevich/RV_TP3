@@ -87,8 +87,6 @@ public class BuildingCreator : MonoBehaviour
                 {
                     Vector3 spawnPoint1 = new Vector3(lampSpawnPoint.x + (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
                     Vector3 spawnPoint2 = new Vector3(lampSpawnPoint.x - (4), lampSpawnPoint.y, lampSpawnPoint.z - (0));
-                    Debug.DrawLine(spawnPoint1, spawnPoint1 + new Vector3(0,2,0));
-                    Debug.DrawLine(spawnPoint2, spawnPoint2 + new Vector3(0,2,0));
                     Vector3 lampBoundry = lampPrefab.transform.localScale /2;
                     Collider[] LampHitColliders1 = Physics.OverlapBox(spawnPoint1, lampBoundry, Quaternion.identity, m_buildings);
                     Collider[] LampHitColliders2 = Physics.OverlapBox(spawnPoint2, lampBoundry, Quaternion.identity, m_buildings);
